@@ -1,0 +1,43 @@
+<div *ngIf="receivedData">
+  <div class="example-header w-full flex justify-end">
+    <mat-form-field class="w-[50%] h-[1.5rem]" appearance="outline">
+      <input [formControl]="search" matInput placeholder="Filter" (keyup)="applyFilter($event)">
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="receivedData" class="example-container mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" matSort>
+      <!-- Day Column -->
+      <ng-container matColumnDef="day">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Day</mat-header-cell>
+        <mat-cell *matCellDef="let row" class="cell-custom tablet:gap-[1rem] tablet:flex-row mobile:flex mobile:flex-col mobile:gap-[0]">
+          <mat-icon>{{ getWeatherIcon(row.description) }}</mat-icon>
+          {{row.day}} </mat-cell>
+      </ng-container>
+
+      <!-- Temperature Column -->
+      <ng-container matColumnDef="temperature">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Temperature</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.temperature}} °C</mat-cell>
+      </ng-container>
+
+      <!-- Humidity Column -->
+      <ng-container matColumnDef="humidity">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Humidity</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.humidity}}%</mat-cell>
+      </ng-container>
+
+      <!-- Description Column -->
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Description</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+  </div>
+</div>

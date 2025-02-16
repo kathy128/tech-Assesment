@@ -1,0 +1,12 @@
+<div class="h-full w-full block tablet:px-12 tablet:py-12 mt-[4rem] mobile:px-[0.7rem] mobile:py-[0.7rem]">
+  <div class="flex gap-12 tablet:mb-12 border-b-gray border-b-2 w-full mobile:mb-4">
+      <button class="text-color" [ngClass]="{'border-b-black btn-color border-b-2': (selected.toLowerCase().includes(option.title.toLowerCase())) }" *ngFor="let option of options" (click)="selectData(option.title)">{{option.title}}</button>
+  </div>
+  <h2 class="subtitles font-medium mb-4">{{selected.toUpperCase()}} FORECAST</h2>
+  <app-loading *ngIf="loading" ></app-loading>
+  <app-table *ngIf="!loading" [receivedData]="displayedData"></app-table>
+  <h2 class="subtitles font-medium mb-4">Daily Overview</h2>
+  <h1 class="text-color overview">{{infoData}}</h1>
+  <div>
+  </div>
+</div>

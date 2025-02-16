@@ -1,0 +1,75 @@
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ocupa toda la pantalla */
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente opcional */
+}
+
+.weather-loader {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.sun {
+  width: 70px;
+  height: 70px;
+  background-color: #FFD700;
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+}
+
+.cloud {
+  width: 66px;
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 50px;
+  position: absolute;
+  top: 5vh;
+  left: 50px;
+  animation: moveCloud 2s linear infinite;
+}
+
+.cloud::before,
+.cloud::after {
+  content: "";
+  position: absolute;
+  background-color: #ccc;
+  border-radius: 50%;
+}
+
+.cloud::before {
+  width: 25px;
+  height: 25px;
+  top: -10px;
+  left: 5px;
+}
+
+.cloud::after {
+  width: 30px;
+  height: 30px;
+  top: -15px;
+  right: 5px;
+}
+
+@keyframes moveCloud {
+  0% {
+    left: 50px;
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    left: -20px;
+    opacity: 0;
+  }
+}
