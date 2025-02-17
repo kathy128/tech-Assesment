@@ -21,6 +21,6 @@ For the charts, I used Ngx-charts.
 To handle errors, I created a dialog that shows an error message if the endpoint fails to load.
 The project includes the API key I used, which is from 'https://openweathermap.org'.
 
-## Additional Resources
+## Additional Resources 👓
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+I created a test for the main component, WeatherListComponent, aiming to cover all its methods.
