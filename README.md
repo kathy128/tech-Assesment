@@ -13,7 +13,7 @@ ng serve
 
 https://docs.google.com/document/d/1qVlGmNCiiP9ZvbZTENcVU5HoPMGOWgzx/edit?usp=drive_link&ouid=115221524006455129719&rtpof=true&sd=true
 
-#⭐ Description project
+⭐# Description project
 
 I developed a responsive website that displays various weather-related data, including humidity, temperature, forecasts, and a brief description of the current weather.
 I incorporated a simple dark mode implementation using Tailwind and structured the project following atomic design principles, allowing for reusable components.
