@@ -11,6 +11,9 @@ import {MatInputModule} from '@angular/material/input';
 import {ReactiveFormsModule} from '@angular/forms';
 import {LoadingComponent} from './components/atoms/loading/loading.component';
 import {CardComponent} from './components/atoms/card/card.component';
+import {ChartComponent} from './components/organism/chart/chart.component';
+import {FooterComponent} from './components/organism/footer/footer.component';
+import {ErrorDialogComponent} from './components/organism/error-dialog/error-dialog.component';
 
 
 
@@ -21,6 +24,9 @@ import {CardComponent} from './components/atoms/card/card.component';
     CommonModule,
     LoadingComponent,
     CardComponent,
+    ChartComponent,
+    FooterComponent,
+    ErrorDialogComponent,
     CdkTableModule,
     HeaderComponent,
     TableComponent,

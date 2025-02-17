@@ -6,7 +6,7 @@
   </div>
 
   <div *ngIf="receivedData" class="example-container mat-elevation-z8">
-    <mat-table [dataSource]="dataSource" matSort>
+    <mat-table [dataSource]="dataSource" matSort class="bg-gray-100 ">
       <!-- Day Column -->
       <ng-container matColumnDef="day">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Day</mat-header-cell>

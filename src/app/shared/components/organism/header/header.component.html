@@ -1,4 +1,7 @@
-<div class="p-4 bg-gray-100 w-full h-[4rem] flex items-center gap-4 shadow-xl">
-  <img src="assets/icons/lluvia.png" alt="Imagen de lluvia" class="w-8 h-8">
-  <span class="font-medium text-2xl">WeatherMetrics</span>
+<div class="p-4 bg-gray-100 w-full h-[4rem] flex items-center gap-4 shadow-xl dark:bg-black">
+  <img [src]="isDarkMode? 'assets/icons/nublado (1).png': 'assets/icons/nublado.png'" alt="Imagen de lluvia" class="w-8 h-8">
+  <span class="font-medium text-2xl dark:text-white">WeatherMetrics</span>
+  <button (click)="toggleTheme()" class="p-2 rounded bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 flex items-center gap-2">
+    {{ isDarkMode ? 'Dark Mode' : 'Light Mode' }}
+  </button>
 </div>

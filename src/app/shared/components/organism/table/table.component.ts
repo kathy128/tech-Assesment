@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, SimpleChanges, ViewChild} from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChild} from '@angular/core';
 import {
   MatCell,
   MatHeaderCell,
@@ -15,7 +15,6 @@ import {MatFormField, MatFormFieldModule} from '@angular/material/form-field';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {TableDataInterface} from '../../../../interfaces/weather.interface';
-import {data} from 'autoprefixer';
 import {MatIconModule} from '@angular/material/icon';
 
 @Component({
@@ -40,7 +39,7 @@ import {MatIconModule} from '@angular/material/icon';
   ],
   styleUrl: './table.component.scss'
 })
-export class TableComponent implements AfterViewInit {
+export class TableComponent {
   displayedColumns = ['day', 'temperature', 'humidity', 'description'];
   @Input() receivedData : TableDataInterface[] = []
   dataSource: MatTableDataSource<any>;
@@ -51,14 +50,11 @@ export class TableComponent implements AfterViewInit {
   constructor() {
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
   ngOnChanges(changes: SimpleChanges) {
     if (changes['receivedData'] && this.receivedData) {
       this.dataSource = new MatTableDataSource(this.receivedData);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     }
   }
 
