@@ -1,58 +1,25 @@
-# TechAssesment
+# TechAssesment 🧑‍💻
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.7.
 
-## Development server
+## Development server 💥
 
 To start a local development server, run:
 
 ```bash
 ng serve
 ```
+# Requirments Document 
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+https://docs.google.com/document/d/1qVlGmNCiiP9ZvbZTENcVU5HoPMGOWgzx/edit?usp=drive_link&ouid=115221524006455129719&rtpof=true&sd=true
 
-## Code scaffolding
+# Description project ⭐
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+I developed a responsive website that displays various weather-related data, including humidity, temperature, forecasts, and a brief description of the current weather.
+I incorporated a simple dark mode implementation using Tailwind and structured the project following atomic design principles, allowing for reusable components.
+For the charts, I used Ngx-charts.
+To handle errors, I created a dialog that shows an error message if the endpoint fails to load.
+The project includes the API key I used, which is from 'https://openweathermap.org'.
 
 ## Additional Resources
 
