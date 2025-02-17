@@ -5,10 +5,12 @@ import {CommonModule} from '@angular/common';
 import {ResponseDataInterface, TableDataInterface} from '../../../../interfaces/weather.interface';
 import {finalize, tap} from 'rxjs';
 import {LoadingComponent} from '../../../../shared/components/atoms/loading/loading.component';
-import {CardComponent} from '../../../../shared/components/atoms/card/card.component';
 import {ChartComponent} from '../../../../shared/components/organism/chart/chart.component';
 import {MatDialog} from '@angular/material/dialog';
 import {ErrorDialogComponent} from '../../../../shared/components/organism/error-dialog/error-dialog.component';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {MatFormField} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 @Component({
   selector: 'app-weather-list',
@@ -18,8 +20,10 @@ import {ErrorDialogComponent} from '../../../../shared/components/organism/error
     TableComponent,
     CommonModule,
     LoadingComponent,
-    CardComponent,
     ChartComponent,
+    MatFormField,
+    MatInputModule,
+    ReactiveFormsModule
   ],
   styleUrl: './weather-list.component.scss'
 })
@@ -33,6 +37,8 @@ export class WeatherListComponent implements OnInit {
     {id: 0, title: 'Days'},
     {id: 1, title: 'Hours'},
   ];
+  public lat = new FormControl('')
+  public lon = new FormControl('')
   public displayedData: TableDataInterface[]
   public generalData: ResponseDataInterface;
   public chartData: { name: string, value: string }[] = []
@@ -47,18 +53,17 @@ export class WeatherListComponent implements OnInit {
   infoData: string = ''
 
   async ngOnInit() {
+    this.loading = true;
     this.renderer.setStyle(this.el.nativeElement, 'height', '100vh');
     this.renderer.setStyle(this.el.nativeElement, 'display', 'flex');
     this.renderer.setStyle(this.el.nativeElement, 'flex-direction', 'column');
-
-    this.loading = true;
     await this.getTableData();
     await this.getOverview();
     this.loading = false;
   }
 
-  private async getTableData() {
-    this.weatherService.getWeather({lat: 33.44, lon: -94.04, appid: '', units: 'metric'})
+  public async getTableData(lat: number = 0, lon: number = 0) {
+    this.weatherService.getWeather({lat: lat, lon: lon, appid: '', units: 'metric'})
       .pipe(
         tap(() => console.log("Llamando a la API...")),
         finalize(() => {
@@ -69,19 +74,20 @@ export class WeatherListComponent implements OnInit {
         next: (data) => {
           this.generalData = data;
           this.selectData('days');
-          this.getChartData('ch');
+          this.selectData('humidity/cloudy');
         },
         error: (error) => {
-          console.error("Error al cargar datos", error)
-          this.showError()
+          console.error("Error al cargar datos", error);
+          this.loading = false;
+          this.showError('Error loading data');
         }
       });
   }
 
   public selectData(selected: string) {
-    this.selected = selected.toLowerCase();
-    switch (this.selected) {
+    switch (selected.toLowerCase()) {
       case 'days':
+        this.selected = selected.toLowerCase();
         this.displayedData = this.generalData.daily.map(d => {
           const date = new Date(d.dt * 1000);
           const formattedDate = new Intl.DateTimeFormat("es-ES", {
@@ -98,6 +104,7 @@ export class WeatherListComponent implements OnInit {
         });
         break;
       case 'hours':
+        this.selected = selected.toLowerCase();
         this.displayedData = this.generalData.hourly.map(d => {
           const date = new Date(d.dt * 1000);
           const formattedDate = new Intl.DateTimeFormat("es-ES", {
@@ -140,7 +147,7 @@ export class WeatherListComponent implements OnInit {
       });
   }
 
-  private getChartData(val: string) {
+  public getChartData(val: string) {
     this.chartData = [];
     if (val === 'ch') {
       this.selectedChart = 'Humidity/Cloudy';
@@ -155,13 +162,20 @@ export class WeatherListComponent implements OnInit {
       this.chartData.push({name: 'Temperature', value: temp.toString()});
       this.chartData.push({name: 'Feels like', value: feelsLike.toString()});
     }
-    console.log('chartData: ', this.chartData);
   }
 
-  showError() {
+  showError(message: string) {
     this.dialog.open(ErrorDialogComponent, {
-      data: { message: 'Ocurrió un error inesperado.' },
+      data: {message: message},
       width: '400px'
     });
+  }
+
+  public async validateFields() {
+    if (this.lat.value !== '' && this.lon.value !== '') {
+      await this.getTableData(parseInt(this.lat.value!), parseInt(this.lon.value!));
+    } else {
+      this.showError('Latitude or Longitude field is empty')
+    }
   }
 }

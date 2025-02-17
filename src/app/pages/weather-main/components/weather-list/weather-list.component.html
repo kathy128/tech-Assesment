@@ -1,21 +1,42 @@
 <div class="block tablet:px-12 tablet:py-12 mt-[4rem] mobile:px-[0.7rem] mobile:py-[0.7rem] dark:bg-[#9FACBA]">
-  <div class="flex gap-12 tablet:mb-12 border-b-gray dark:border-b-black border-b-2 w-full mobile:mb-4">
-      <button class="text-[#7C7C7C] dark:text-black" [ngClass]="{'border-b-black btn-color border-b-2': (selected.toLowerCase().includes(option.title.toLowerCase())) }" *ngFor="let option of options" (click)="selectData(option.title)">{{option.title}}</button>
-  </div>
-  <app-loading *ngIf="loading"></app-loading>
-  <div class="mb-2">
-    <h2 class="text-2xl text-[#3E82E7] font-medium mb-4 dark:text-[#1f5db9]">{{selected.toUpperCase()}} FORECAST</h2>
-    <app-table *ngIf="!loading" [receivedData]="displayedData"></app-table>
-  </div>
-  <h2 class="text-2xl text-[#3E82E7] mt-[2rem] font-medium dark:text-[#1f5db9]">Weather Charts</h2>
-  <div class="flex flex-col items-center mt-[-4rem]">
-    <app-chart *ngIf="generalData && !loading" [data]="chartData"></app-chart>
-    <div class="flex gap-12 mb-[2rem] h-[3rem] mt-[-4rem]">
-      <button class="btn-style" [ngClass]="{'bg-[#DAE5F5] dark:text-gray-400': (selected.toLowerCase().includes(option.title.toLowerCase())) }" *ngFor="let option of optionsChart" (click)="selectData(option.title)">{{option.title}}</button>
+  <app-loading *ngIf="loading && !generalData && !chartData"></app-loading>
+  <div *ngIf="!loading && generalData && chartData">
+    <div class="flex gap-12 tablet:mb-12 border-b-gray dark:border-b-black border-b-2 w-full mobile:mb-4">
+      <button class="text-[#7C7C7C] dark:text-black"
+              [ngClass]="{'border-b-black btn-color border-b-2': (selected.toLowerCase()===option.title.toLowerCase()) }"
+              *ngFor="let option of options" (click)="selectData(option.title)">{{option.title}}</button>
     </div>
-  </div>
+    <div class="mb-2">
+      <h2 class="text-2xl text-[#3E82E7] font-medium mb-4 dark:text-[#1f5db9]">{{selected.toUpperCase()}} FORECAST</h2>
+      <div class="flex tablet:w-[50%] tablet:gap-[1rem] tablet:flex-row  mobile:flex-col mobile:w-[100%] mobile:gap-[2rem] mb-[1rem]">
+        <div>
+          <mat-form-field class="h-[1.5rem]" appearance="outline">
+            <input [formControl]="lat" matInput placeholder="Latitude" type="number" pattern="[0-9]*" oncopy="return false" oncut="return false" onpaste="return false">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class=" h-[1.5rem]" appearance="outline">
+            <input [formControl]="lon" matInput placeholder="Longitude" type="number" pattern="[0-9]*" oncopy="return false" oncut="return false" onpaste="return false">
+          </mat-form-field>
+        </div>
+        <div class="mt-[0.5rem]">
+          <button class="btn-style" (click)="validateFields()">Search</button>
+        </div>
+      </div>
+      <app-table [receivedData]="displayedData"></app-table>
+    </div>
+    <h2 class="text-2xl text-[#3E82E7] mt-[2rem] font-medium dark:text-[#1f5db9]">Weather Charts</h2>
+    <div class="flex flex-col items-center mt-[-4rem]">
+      <app-chart *ngIf="generalData && !loading" [data]="chartData"></app-chart>
+      <div class="flex gap-12 mb-[2rem] h-[3rem] mt-[-4rem]">
+        <button class="btn-style"
+                [ngClass]="{'bg-[#DAE5F5] dark:text-gray-400': (selectedChart.toLowerCase()===option.title.toLowerCase()) }"
+                *ngFor="let option of optionsChart" (click)="selectData(option.title)">{{option.title}}</button>
+      </div>
+    </div>
     <h2 class="text-2xl text-[#3E82E7] font-medium mb-[5rem] mobile:mb-[1rem] dark:text-[#1f5db9]">Daily Overview</h2>
-  <div class="flex w-full justify-center">
-    <h1 class="text-[#7C7C7C] overview dark:text-black">{{infoData}}</h1>
+    <div class="flex w-full justify-center">
+      <h1 class="text-[#7C7C7C] overview dark:text-black">{{infoData}}</h1>
+    </div>
   </div>
 </div>

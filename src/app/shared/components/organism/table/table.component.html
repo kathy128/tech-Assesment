@@ -1,6 +1,6 @@
 <div *ngIf="receivedData">
-  <div class="example-header w-full flex justify-end">
-    <mat-form-field class="w-[50%] h-[1.5rem]" appearance="outline">
+  <div class="example-header w-full flex justify-end mobile:mt-[1rem] tablet:mt-[0]">
+    <mat-form-field class="tablet:w-[30%] h-[1.5rem] mobile:w-full" appearance="outline">
       <input [formControl]="search" matInput placeholder="Filter" (keyup)="applyFilter($event)">
     </mat-form-field>
   </div>

@@ -15,8 +15,8 @@ export interface TableColumn {
 
 export interface TableDataInterface {
   day: string,
-  temperature: string,
-  humidity: string,
+  temperature: string | number,
+  humidity: string | number,
   description: string,
 }
 

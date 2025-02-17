@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, inject, Input, SimpleChanges, ViewChild} from '@angular/core';
 import {
   MatCell,
   MatHeaderCell,
@@ -9,13 +9,14 @@ import {
   MatTableModule
 } from '@angular/material/table';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import {MatSort, MatSortModule} from '@angular/material/sort';
+import {MatSort, MatSortModule, Sort} from '@angular/material/sort';
 import {CommonModule} from '@angular/common';
 import {MatFormField, MatFormFieldModule} from '@angular/material/form-field';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {TableDataInterface} from '../../../../interfaces/weather.interface';
 import {MatIconModule} from '@angular/material/icon';
+import {LiveAnnouncer} from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-table',
@@ -40,6 +41,7 @@ import {MatIconModule} from '@angular/material/icon';
   styleUrl: './table.component.scss'
 })
 export class TableComponent {
+  private _liveAnnouncer = inject(LiveAnnouncer);
   displayedColumns = ['day', 'temperature', 'humidity', 'description'];
   @Input() receivedData : TableDataInterface[] = []
   dataSource: MatTableDataSource<any>;
@@ -71,6 +73,13 @@ export class TableComponent {
       if (description.toLowerCase().includes('rain')) return 'umbrella';
       if (description.toLowerCase().includes('snow')) return 'ac_unit';
         return 'help_outline';
+  }
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
 }
 
